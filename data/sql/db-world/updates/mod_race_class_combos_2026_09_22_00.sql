@@ -2,56 +2,33 @@
 -- playercreateinfo_skills/_spell_custom race/class MASKS; only position (+ action bar) is per-combo.
 -- Idempotent. Client also needs a CharBaseInfo.dbc patch to offer the combos in the UI.
 
--- GnomePriest (race 7, class 5)
-DELETE FROM `playercreateinfo` WHERE `race`=7 AND `class`=5;
-INSERT INTO `playercreateinfo` (`race`,`class`,`map`,`zone`,`position_x`,`position_y`,`position_z`,`orientation`)
-  SELECT 7,5,`map`,`zone`,`position_x`,`position_y`,`position_z`,`orientation` FROM `playercreateinfo` WHERE `race`=7 AND `class`<>6 ORDER BY `class` LIMIT 1;
-DELETE FROM `playercreateinfo_action` WHERE `race`=7 AND `class`=5;
-INSERT INTO `playercreateinfo_action` (`race`,`class`,`button`,`action`,`type`)
-  SELECT 7,5,`button`,`action`,`type` FROM `playercreateinfo_action` WHERE `race`=1 AND `class`=5; -- Copia de Humano (Alianza)
-DELETE FROM `playercreateinfo_item` WHERE `race`=7 AND `class`=5;
+-- GNOME PRIEST (RaceMask 64, ClassMask 16) - Copia de Human Priest (RaceMask 1, ClassMask 16)
+DELETE FROM `playercreateinfo_skills` WHERE `raceMask`=64 AND `classMask`=16 AND `skill` NOT IN (98, 109, 111, 113, 115, 137, 313, 315);
+INSERT INTO `playercreateinfo_skills` (`raceMask`, `classMask`, `skill`, `rank`)
+  SELECT 64, 16, `skill`, `rank` FROM `playercreateinfo_skills` WHERE `raceMask`=1 AND `classMask`=16 AND `skill` NOT IN (98, 109, 111, 113, 115, 137, 313, 315);
 
--- HumanHunter (race 1, class 3)
-DELETE FROM `playercreateinfo` WHERE `race`=1 AND `class`=3;
-INSERT INTO `playercreateinfo` (`race`,`class`,`map`,`zone`,`position_x`,`position_y`,`position_z`,`orientation`)
-  SELECT 1,3,`map`,`zone`,`position_x`,`position_y`,`position_z`,`orientation` FROM `playercreateinfo` WHERE `race`=1 AND `class`<>6 ORDER BY `class` LIMIT 1;
-DELETE FROM `playercreateinfo_action` WHERE `race`=1 AND `class`=3;
-INSERT INTO `playercreateinfo_action` (`race`,`class`,`button`,`action`,`type`)
-  SELECT 1,3,`button`,`action`,`type` FROM `playercreateinfo_action` WHERE `race`=3 AND `class`=3; -- CORREGIDO: Copia de Enano (Alianza) en vez de Orco
-DELETE FROM `playercreateinfo_item` WHERE `race`=1 AND `class`=3;
+-- HUMAN HUNTER (RaceMask 1, ClassMask 4) - Copia de Orc Hunter (RaceMask 2, ClassMask 4)
+DELETE FROM `playercreateinfo_skills` WHERE `raceMask`=1 AND `classMask`=4 AND `skill` NOT IN (98, 109, 111, 113, 115, 137, 313, 315);
+INSERT INTO `playercreateinfo_skills` (`raceMask`, `classMask`, `skill`, `rank`)
+  SELECT 1, 4, `skill`, `rank` FROM `playercreateinfo_skills` WHERE `raceMask`=2 AND `classMask`=4 AND `skill` NOT IN (98, 109, 111, 113, 115, 137, 313, 315);
 
--- DwarfShaman (race 3, class 7)
-DELETE FROM `playercreateinfo` WHERE `race`=3 AND `class`=7;
-INSERT INTO `playercreateinfo` (`race`,`class`,`map`,`zone`,`position_x`,`position_y`,`position_z`,`orientation`)
-  SELECT 3,7,`map`,`zone`,`position_x`,`position_y`,`position_z`,`orientation` FROM `playercreateinfo` WHERE `race`=3 AND `class`<>6 ORDER BY `class` LIMIT 1;
-DELETE FROM `playercreateinfo_action` WHERE `race`=3 AND `class`=7;
-INSERT INTO `playercreateinfo_action` (`race`,`class`,`button`,`action`,`type`)
-  SELECT 3,7,`button`,`action`,`type` FROM `playercreateinfo_action` WHERE `race`=2 AND `class`=7; -- Copia de Orco (Obligatorio, único origen válido)
-DELETE FROM `playercreateinfo_item` WHERE `race`=3 AND `class`=7;
+-- DWARF SHAMAN (RaceMask 4, ClassMask 64) - Copia de Orc Shaman (RaceMask 2, ClassMask 64)
+DELETE FROM `playercreateinfo_skills` WHERE `raceMask`=4 AND `classMask`=64 AND `skill` NOT IN (98, 109, 111, 113, 115, 137, 313, 315);
+INSERT INTO `playercreateinfo_skills` (`raceMask`, `classMask`, `skill`, `rank`)
+  SELECT 4, 64, `skill`, `rank` FROM `playercreateinfo_skills` WHERE `raceMask`=2 AND `classMask`=64 AND `skill` NOT IN (98, 109, 111, 113, 115, 137, 313, 315);
 
--- OrcMage (race 2, class 8)
-DELETE FROM `playercreateinfo` WHERE `race`=2 AND `class`=8;
-INSERT INTO `playercreateinfo` (`race`,`class`,`map`,`zone`,`position_x`,`position_y`,`position_z`,`orientation`)
-  SELECT 2,8,`map`,`zone`,`position_x`,`position_y`,`position_z`,`orientation` FROM `playercreateinfo` WHERE `race`=2 AND `class`<>6 ORDER BY `class` LIMIT 1;
-DELETE FROM `playercreateinfo_action` WHERE `race`=2 AND `class`=8;
-INSERT INTO `playercreateinfo_action` (`race`,`class`,`button`,`action`,`type`)
-  SELECT 2,8,`button`,`action`,`type` FROM `playercreateinfo_action` WHERE `race`=5 AND `class`=8; -- CORREGIDO: Copia de No-muerto (Horda) en vez de Humano
-DELETE FROM `playercreateinfo_item` WHERE `race`=2 AND `class`=8;
+-- ORC MAGE (RaceMask 2, ClassMask 128) - Copia de Human Mage (RaceMask 1, ClassMask 128)
+DELETE FROM `playercreateinfo_skills` WHERE `raceMask`=2 AND `classMask`=128 AND `skill` NOT IN (98, 109, 111, 113, 115, 137, 313, 315);
+INSERT INTO `playercreateinfo_skills` (`raceMask`, `classMask`, `skill`, `rank`)
+  SELECT 2, 128, `skill`, `rank` FROM `playercreateinfo_skills` WHERE `raceMask`=1 AND `classMask`=128 AND `skill` NOT IN (98, 109, 111, 113, 115, 137, 313, 315);
 
--- TrollWarlock (race 8, class 9)
-DELETE FROM `playercreateinfo` WHERE `race`=8 AND `class`=9;
-INSERT INTO `playercreateinfo` (`race`,`class`,`map`,`zone`,`position_x`,`position_y`,`position_z`,`orientation`)
-  SELECT 8,9,`map`,`zone`,`position_x`,`position_y`,`position_z`,`orientation` FROM `playercreateinfo` WHERE `race`=8 AND `class`<>6 ORDER BY `class` LIMIT 1;
-DELETE FROM `playercreateinfo_action` WHERE `race`=8 AND `class`=9;
-INSERT INTO `playercreateinfo_action` (`race`,`class`,`button`,`action`,`type`)
-  SELECT 8,9,`button`,`action`,`type` FROM `playercreateinfo_action` WHERE `race`=2 AND `class`=9; -- CORREGIDO: Copia de Orco (Horda) en vez de Humano
-DELETE FROM `playercreateinfo_item` WHERE `race`=8 AND `class`=9;
+-- TROLL WARLOCK (RaceMask 128, ClassMask 256) - Copia de Human Warlock (RaceMask 1, ClassMask 256)
+DELETE FROM `playercreateinfo_skills` WHERE `raceMask`=128 AND `classMask`=256 AND `skill` NOT IN (98, 109, 111, 113, 115, 137, 313, 315);
+INSERT INTO `playercreateinfo_skills` (`raceMask`, `classMask`, `skill`, `rank`)
+  SELECT 128, 256, `skill`, `rank` FROM `playercreateinfo_skills` WHERE `raceMask`=1 AND `classMask`=256 AND `skill` NOT IN (98, 109, 111, 113, 115, 137, 313, 315);
 
--- UndeadPaladin (race 5, class 2)
-DELETE FROM `playercreateinfo` WHERE `race`=5 AND `class`=2;
-INSERT INTO `playercreateinfo` (`race`,`class`,`map`,`zone`,`position_x`,`position_y`,`position_z`,`orientation`)
-  SELECT 5,2,`map`,`zone`,`position_x`,`position_y`,`position_z`,`orientation` FROM `playercreateinfo` WHERE `race`=5 AND `class`<>6 ORDER BY `class` LIMIT 1;
-DELETE FROM `playercreateinfo_action` WHERE `race`=5 AND `class`=2;
-INSERT INTO `playercreateinfo_action` (`race`,`class`,`button`,`action`,`type`)
-  SELECT 5,2,`button`,`action`,`type` FROM `playercreateinfo_action` WHERE `race`=1 AND `class`=2; -- Copia de Humano (Obligatorio, único origen válido)
-DELETE FROM `playercreateinfo_item` WHERE `race`=5 AND `class`=2;
+-- UNDEAD PALADIN (RaceMask 16, ClassMask 2) - Copia de Human Paladin (RaceMask 1, ClassMask 2)
+DELETE FROM `playercreateinfo_skills` WHERE `raceMask`=16 AND `classMask`=2 AND `skill` NOT IN (98, 109, 111, 113, 115, 137, 313, 315);
+INSERT INTO `playercreateinfo_skills` (`raceMask`, `classMask`, `skill`, `rank`)
+  SELECT 16, 2, `skill`, `rank` FROM `playercreateinfo_skills` WHERE `raceMask`=1 AND `classMask`=2 AND `skill` NOT IN (98, 109, 111, 113, 115, 137, 313, 315);
+
