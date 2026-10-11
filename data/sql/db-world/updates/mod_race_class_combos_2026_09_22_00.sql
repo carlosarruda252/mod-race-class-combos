@@ -50,16 +50,9 @@ DELETE FROM `playercreateinfo_action` WHERE `race`=5 AND `class`=2;
 INSERT INTO `playercreateinfo_action` (`race`,`class`,`button`,`action`,`type`)
   SELECT 5,2,`button`,`action`,`type` FROM `playercreateinfo_action` WHERE `race`=1 AND `class`=2;
 
-
-
--- Añade la habilidad de Armas de Fuego (SkillID 46) para Humano (RaceMask 1) Cazador (ClassMask 4)
-INSERT INTO `skillraceclassinfo_dbc` 
-(`ID`, `SkillID`, `RaceMask`, `ClassMask`, `Flags`, `MinLevel`, `SkillTierID`, `SkillCostIndex`) 
-VALUES 
-(1000, 46, 1, 4, 128, 1, 0, 0);
-
--- Añade la habilidad de Hachas (SkillID 44) para Humano (RaceMask 1) Cazador (ClassMask 4)
-INSERT INTO `skillraceclassinfo_dbc` 
-(`ID`, `SkillID`, `RaceMask`, `ClassMask`, `Flags`, `MinLevel`, `SkillTierID`, `SkillCostIndex`) 
-VALUES 
-(1001, 44, 1, 4, 128, 1, 0, 0);
+-- HumanHunter weapon skills: stock SkillRaceClassInfo has no Human (RaceMask 1) row for
+-- Hunter (ClassMask 4) Guns (SkillID 46) or Axes (SkillID 44). IDs 1000+ are free (stock max is 970).
+DELETE FROM `skillraceclassinfo_dbc` WHERE `ID` IN (1000, 1001);
+INSERT INTO `skillraceclassinfo_dbc` (`ID`,`SkillID`,`RaceMask`,`ClassMask`,`Flags`,`MinLevel`,`SkillTierID`,`SkillCostIndex`) VALUES
+(1000, 46, 1, 4, 128, 1, 0, 0), -- Guns
+(1001, 44, 1, 4, 128, 1, 0, 0); -- Axes
